@@ -22,5 +22,17 @@ $Magenta=@{color = "Magenta"; guessed = $false}
 $Yellow=@{color = "Yellow"; guessed = $false}
 $White=@{color = "White"; guessed = $false}
 
-$list = $Black,$DarkBlue,$DarkGreen,$DarkCyan,$DarkRed,$DarkMagenta,$DarkYellow,$Gray,$DarkGray,$Blue,$Green,$Cyan,$Red,$Magenta,$Yellow,$White
+$validColors= $Black,$DarkBlue,$DarkGreen,$DarkCyan,$DarkRed,$DarkMagenta,$DarkYellow,$Gray,$DarkGray,$Blue,$Green,$Cyan,$Red,$Magenta,$Yellow,$White
 
+do {
+    Write-Host "Let's play a game, I have a favorite color, and you have to guess it. The valid colors you can guess are as follows: "
+    foreach ($color in $validColors) {$color.color}
+    $a = Read-Host -Prompt "Would you like to play again? (Y/n)"
+    if ($a -eq "y") {
+        $playAgain = $true
+    }
+    elseif ($a -eq "n") {
+        $playAgain = $false
+        Write-Host "Goodbye now!"
+    }
+} while ($playAgain -eq $true)
