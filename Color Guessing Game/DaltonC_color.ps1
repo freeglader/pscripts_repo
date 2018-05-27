@@ -9,6 +9,7 @@
 $validColors= "Black","DarkBlue","DarkGreen","DarkCyan","DarkRed","DarkMagenta","DarkYellow","Gray","DarkGray","Blue","Green","Cyan","Red","Magenta","Yellow","White"
 $attempts = 0
 [System.Collections.ArrayList]$guessedWrong = @()
+$targetPrompt = "guessPrompt"
 
 function Show-Menu
 {
@@ -22,7 +23,7 @@ function Show-Menu
      Write-Host "2: Press '2' to list valid colors"
      Write-Host "3: Press '3' to list colors you have guessed for this round."
      Write-Host "4: Press '4' to reveal a hint"
-     Write-Host "Q: Press 'Q' to quit."
+     Write-Host "Q: Press 'Q' to quit round."
 }
 
 # Begin the round
@@ -33,17 +34,42 @@ do {
     # Get the random color for the round and assign it to a variable
     $randomColor = Get-Random $validColors
 
-    do {
+    :guessPrompt do {
         try {
             # Prompt the user to enter a guess and record the guess in a variable
             $guess = Read-Host -Prompt "What is your guess? (Press 'm' for menu)"
-            if ($guess -notin $validColors) {
+            if ($guess -notin $validColors -and $guess -ne "m") {
                 throw
             }
         }
         catch {
             Write-Host "Your guess must be one of the valid colors."
             continue
+        }
+        if ($guess -eq "m") {
+            do {
+                Show-Menu
+                $input = Read-Host "Please make a selection"
+                switch ($input) {
+                    '1' {
+                        cls
+                        continue $targetPrompt
+                    } '2' {
+                        cls
+                        'You chose option #2'
+                    } '3' {
+                        cls
+                        'You chose option #3'
+                    } '4' {
+                        cls
+                        'You chose option #4'
+                    } 'q' {
+                        return
+                    }
+                }
+                pause
+            }
+            until ($input -eq 'q')
         }
         if ($guess -ne $randomColor) {
             Write-Host "Sorry, " -NoNewline
