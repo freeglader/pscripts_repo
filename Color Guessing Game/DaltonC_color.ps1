@@ -5,39 +5,39 @@
 # Special Feature:  <describe your special feature here>
 #===================================================
 # Hashtables for all the console colors
-# The purpose of using hashtables is to be able to track which colors the user has already guessed in order to provide stats.
-$Black=@{color = "Black"; guessed = $false}
-$DarkBlue=@{color = "DarkBlue"; guessed = $false}
-$DarkGreen=@{color = "DarkGreen"; guessed = $false}
-$DarkCyan=@{color = "DarkCyan"; guessed = $false}
-$DarkRed=@{color = "DarkRed"; guessed = $false}
-$DarkMagenta=@{color = "DarkMagenta"; guessed = $false}
-$DarkYellow=@{color = "DarkYellow"; guessed = $false}
-$Gray=@{color = "Gray"; guessed = $false}
-$DarkGray=@{color = "DarkGray"; guessed = $false}
-$Blue=@{color = "Blue"; guessed = $false}
-$Green=@{color = "Green"; guessed = $false}
-$Cyan=@{color = "Cyan"; guessed = $false}
-$Red=@{color = "Red"; guessed = $false}
-$Magenta=@{color = "Magenta"; guessed = $false}
-$Yellow=@{color = "Yellow"; guessed = $false}
-$White=@{color = "White"; guessed = $false}
 
-# Put all the hashtables of console colors into an array
-$validColors= $Black,$DarkBlue,$DarkGreen,$DarkCyan,$DarkRed,$DarkMagenta,$DarkYellow,$Gray,$DarkGray,$Blue,$Green,$Cyan,$Red,$Magenta,$Yellow,$White
+$validColors= "Black","DarkBlue","DarkGreen","DarkCyan","DarkRed","DarkMagenta","DarkYellow","Gray","DarkGray","Blue","Green","Cyan","Red","Magenta","Yellow","White"
+$attempts = 0
+[System.Collections.ArrayList]$guessedWrong = @()
+
+function Show-Menu
+{
+     param (
+           [string]$Title = 'Menu'
+     )
+     cls
+     Write-Host "================ $Title ================"
+    
+     Write-Host "1: Press '1' to make your guess."
+     Write-Host "2: Press '2' to list valid colors"
+     Write-Host "3: Press '3' to list colors you have guessed for this round."
+     Write-Host "4: Press '4' to reveal a hint"
+     Write-Host "Q: Press 'Q' to quit."
+}
 
 # Begin the round
 do {
     Write-Host "Let's play a game, I have a favorite color, and you have to guess it. The valid colors you can guess are as follows: "
-    # Prints a list of all the values for "color" in the hashtables using the $validColors array
-    foreach ($color in $validColors) {$color.color}
+    # Prints a list of all the valid console colors in their respective color
+    foreach ($color in $validColors) {Write-Host $color -ForegroundColor $color}
     # Get the random color for the round and assign it to a variable
     $randomColor = Get-Random $validColors
+
     do {
         try {
             # Prompt the user to enter a guess and record the guess in a variable
-            $guess = Read-Host -Prompt "What is your guess?"
-            if ($guess.ToLower() -notin $validColors.color.ToLower()) {
+            $guess = Read-Host -Prompt "What is your guess? (Press 'm' for menu)"
+            if ($guess -notin $validColors) {
                 throw
             }
         }
@@ -45,19 +45,32 @@ do {
             Write-Host "Your guess must be one of the valid colors."
             continue
         }
-        if ($guess.ToLower() -ne $randomColor.color.ToLower()) {
-            Write-Host "Sorry, $guess not my favorite color."
+        if ($guess -ne $randomColor) {
+            Write-Host "Sorry, " -NoNewline
+            Write-Host $guess -ForegroundColor $guess -NoNewline
+            Write-Host " is not my favorite color."
+            $guessedWrong.Add("$guess") > $null
+            Write-Host "Correct answer is " -NoNewline
+            $randomColor
         }
+        $attempts += 1
         
     }
-    until ($guess -eq $randomColor.color)
-    if ($guess -eq $randomColor.color) {
-        Write-Host "Congrats u won!"
+    until ($guess -eq $randomColor)
+    if ($guess -eq $randomColor) {
+        Write-Host "Congrats you won! My favorite color was " -NoNewline
+        Write-Host $randomColor -ForegroundColor $randomColor -NoNewline
+        Write-Host ". You guessed incorrectly" ($attempts -1) -NoNewline
+        Write-Host " time(s), and guessed correctly on try number" $attempts
+        Write-Host "These are the colors you guessed incorrectly: "
+        foreach ($color in $guessedWrong) {Write-Host $color -ForegroundColor $color}
     }
 
     $a = Read-Host -Prompt "Would you like to play again? (Y/n)"
     if ($a -eq "y") {
         $playAgain = $true
+        $attempts = 0
+        $guessedWrong = @()
     }
     elseif ($a -eq "n") {
         $playAgain = $false
