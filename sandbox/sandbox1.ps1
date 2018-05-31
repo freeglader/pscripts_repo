@@ -47,4 +47,7 @@ Write-Host "`nArray Slices:`n" -ForegroundColor "green"
 '$b[2,3] = ' + $b[2,3]
 '$b[2..4] = ' + $b[2..4]
 
-Write-Host
+# Static methods $ double colon operator
+
+Write-Host "`nDouble Colon Operator, for accessing static methods:`n" -Foreground "green"
+'$t = [string]'
