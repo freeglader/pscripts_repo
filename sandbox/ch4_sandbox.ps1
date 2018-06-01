@@ -1,8 +1,10 @@
 <#
-Multi-line comment block
+ Multi-line comment block
 Cool beans
 #>
 
+# make write-host a little easier
+Set-Alias -Name wh -Value Write-Host
 # Array subexpression
 Write-Host "I've created a variable `$a here with the value of 'aaa' to illustrate how powershell treats arrays 
 when sorted."
@@ -51,3 +53,4 @@ Write-Host "`nArray Slices:`n" -ForegroundColor "green"
 
 Write-Host "`nDouble Colon Operator, for accessing static methods:`n" -Foreground "green"
 '$t = [string]'
+$t::Joine 
