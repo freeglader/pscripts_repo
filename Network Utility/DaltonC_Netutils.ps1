@@ -6,6 +6,25 @@
 # Support functions: Describe your network support functions.
 #===================================================
 
+#! Genius way to convert binary strings into IPv4 addresses
+<#
+ $a=$i=$null
+
+"11111111","11111111","11111000","00000000" |
+
+ % {
+
+     $i++
+
+     [string]$a += [convert]::ToInt32($_,2)
+
+     if($i -le 3) {[string]$a += "."}
+
+   }
+
+$a
+#>
+
 <#
     3. #! Function 1
         a. #! Description:  Function takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.  Return output that shows results of ping.
@@ -27,6 +46,7 @@ function Test-IPHost ($HostName,$Count) {
         $ip = $((Resolve-DnsName $HostName).IP4Address)
         $ip
 }
+
 
 Test-IPHost -HostName google.com
 
