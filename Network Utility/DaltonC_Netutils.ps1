@@ -42,13 +42,16 @@ $a
 #? $a[0].IP4Address = IP
 #? A records are IPv4, AAAA records are IPv6
 
-function Test-IPHost ($HostName,$Count) {
+function Test-IPHost ($HostName,$Count = 1) {
         $ip = $((Resolve-DnsName $HostName).IP4Address)
+        # (($ip).where({$_.Section -eq "Answer"})).IP4Address
         $ip
+
+        Test-Connection $ip 
 }
 
 
-Test-IPHost -HostName google.com
+Test-IPHost -HostName google.com, reddit.com
 
 
 <#
