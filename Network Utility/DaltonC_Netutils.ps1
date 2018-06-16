@@ -28,7 +28,7 @@ $a
 #! Functions for Repeatable tasks
 $convertedIP=$null
 $counter = $null
-function CIDR-ToDecimal ($cidr){
+function Convert-CIDR ($cidr){
  if($cidr -le 32){
  [Int[]]$totalBits = (1..32)
  for($i=0;$i -lt $totalBits.length;$i++){
@@ -49,16 +49,15 @@ function CIDR-ToDecimal ($cidr){
     return $convertedIP
 }
 
-CIDR-ToDecimal 8
 <#
-    3. #! Function 1
-        a. #! Description:  Function takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.  Return output that shows results of ping.
-        b. #! Name: 
+    3. #? Function 1
+        a. #* Description:  Function takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.  Return output that shows results of ping.
+        b. #* Name: 
             i. #* Test-IPHost
-        c. #! Parameters:  
+        c. #* Parameters:  
             i. #* –HostName  (name of host to ping)
             ii. #* -Count:  Optional Number of times to ping the device
-        d. #! Features:  
+        d. #? Features:  
             i. #todo: Provide an appropriate error if the host is not found
             ii. #* Allow multiple hostnames to be tested
 #>
@@ -68,8 +67,10 @@ function Test-IPHost ($HostName,$Count = 1) {
     Write-Host -Foreground "green" "Up-status for $name"
     $ip = ((Resolve-DnsName -Name $name).where({$_.Section -eq "Answer"})).IP4Address
         foreach ($i in $ip) {
+            $upStatus = Test-Connection $i -Count $Count -Quiet
             Write-Host -Foreground "magenta" "$i`: " -NoNewline
-            Test-Connection $i -Count $Count -Quiet
+            $(if($upStatus -eq $True){Write-Host -Foreground "green" "Up"} else {Write-Host -Foreground "red" "down"})
+            
         }
     }
 }
