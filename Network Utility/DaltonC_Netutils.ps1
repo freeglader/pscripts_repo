@@ -27,28 +27,29 @@ $a
 # pushing to repo from new pc test
 #! Functions for Repeatable tasks
 $convertedIP=$null
- $counter = $null
-function New-CidrToBin ($cidr){
+$counter = $null
+function CIDR-ToDecimal ($cidr){
  if($cidr -le 32){
  [Int[]]$totalBits = (1..32)
  for($i=0;$i -lt $totalBits.length;$i++){
  if($totalBits[$i] -gt $cidr){$totalBits[$i]="0"}else{$totalBits[$i]="1"}
  }
  $cidr = $totalBits -join ""
- 
  #Write-Host -Foreground "green" $cidr.Substring(0,8)
  #Write-Host -Foreground "green" $cidr.Substring(24,8)
  $octetArray = @($cidr.Substring(0,8), $cidr.Substring(8,8), $cidr.Substring(16,8), $cidr.Substring(24,8))
  $octetArray | foreach { 
         $counter++
         [string]$convertedIP += [convert]::ToInt32($_,2)
+        #! Counts octets so it can add a "." after each octet except the last.
+        #? (might want to change this to a join)
         if($counter -le 3) {[string]$convertedIP += "."}
     }
  }
     return $convertedIP
 }
 
-New-CidrToBin 8
+CIDR-ToDecimal 8
 <#
     3. #! Function 1
         a. #! Description:  Function takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.  Return output that shows results of ping.
