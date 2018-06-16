@@ -25,32 +25,52 @@
 $a
 #>
 
+#! Functions for Repeatable tasks
+$convertedIP=$null
+ $counter = $null
+function New-CidrToBin ($cidr){
+ if($cidr -le 32){
+ [Int[]]$totalBits = (1..32)
+ for($i=0;$i -lt $totalBits.length;$i++){
+ if($totalBits[$i] -gt $cidr){$totalBits[$i]="0"}else{$totalBits[$i]="1"}
+ }
+ $cidr = $totalBits -join ""
+ 
+ #Write-Host -Foreground "green" $cidr.Substring(0,8)
+ #Write-Host -Foreground "green" $cidr.Substring(24,8)
+ $octetArray = @($cidr.Substring(0,8), $cidr.Substring(8,8), $cidr.Substring(16,8), $cidr.Substring(24,8))
+ $octetArray | foreach { 
+        $counter++
+        [string]$convertedIP += [convert]::ToInt32($_,2)
+        if($counter -le 3) {[string]$convertedIP += "."}
+    }
+ }
+    return $convertedIP
+}
+
+New-CidrToBin 8
 <#
     3. #! Function 1
         a. #! Description:  Function takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.  Return output that shows results of ping.
         b. #! Name: 
-            i. #todo: Test-IPHost
+            i. #* Test-IPHost
         c. #! Parameters:  
-            i. #todo: –HostName  (name of host to ping)
-            ii. #todo: -Count:  Optional Number of times to ping the device
+            i. #* –HostName  (name of host to ping)
+            ii. #* -Count:  Optional Number of times to ping the device
         d. #! Features:  
             i. #todo: Provide an appropriate error if the host is not found
-            ii. #todo: Allow multiple hostnames to be tested
+            ii. #* Allow multiple hostnames to be tested
 #>
-#? $a = Resolve-DnsName google.com
-#? $a = array
-#? $a[0].IP4Address = IP
-#? A records are IPv4, AAAA records are IPv6
 
 function Test-IPHost ($HostName,$Count = 1) {
     foreach ($name in $HostName) {
-    Write-Host -ForegroundColor "Magenta" "The `$name variable holds these values: " $name
-    $ip = ((Resolve-DnsName $name).where({$_.Section -eq "Answer"})).IP4Address
-    Write-Host -Foreground "green" $name ": " $ip
-    Write-Host "The hostnames I tested are: " $HostName
-    Write-Host "Value in `$args is: " $args
+    Write-Host -Foreground "green" "Up-status for $name"
+    $ip = ((Resolve-DnsName -Name $name).where({$_.Section -eq "Answer"})).IP4Address
+        foreach ($i in $ip) {
+            Write-Host -Foreground "magenta" "$i`: " -NoNewline
+            Test-Connection $i -Count $Count -Quiet
+        }
     }
-
 }
 
 Test-IPHost -HostName google.com,reddit.com,youtube.com
@@ -68,10 +88,29 @@ Test-IPHost -HostName google.com,reddit.com,youtube.com
             ii. #todo: Validate IP address and subnet mask, return error if they are not valid.
 #>
 
+function Test-IPNetwork () {
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Net.IPAddress] $IP1,
+
+        [Parameter(Mandatory=$true)]
+        [Net.IPAddress] $IP2,
+
+        [Parameter(Mandatory=$true)]
+        [Net.IPAddress] $SubnetMask
+    )
 
 
 
 
+}
+
+# bitconverter class gets bytes out of something (ip address)
+# hash table with bits as key and netmask as value? 11111111 = 255?
+ 
+#[net.IPaddress]$SubnetMask = $SubnetMask
+# $globalVARforSubnetMask = New-CidrToIPAdd 24
+# $globalVARforSubnetMask
 <#
     5. #! Function 3
         a. #! Description:  Given an IP address and a Subnet mask return the network ID
