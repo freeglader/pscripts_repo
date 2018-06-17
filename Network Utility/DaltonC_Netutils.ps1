@@ -75,7 +75,7 @@ function Test-IPHost ($HostName,$Count = 1) {
     }
 }
 
-Test-IPHost -HostName google.com,reddit.com,youtube.com
+# Test-IPHost -HostName google.com,reddit.com,youtube.com
 
 
 <#
@@ -99,14 +99,33 @@ function Test-IPNetwork () {
         [Net.IPAddress] $IP2,
 
         [Parameter(Mandatory=$true)]
-        [Net.IPAddress] $SubnetMask
+        [string] $SubnetMask
     )
+    if ($SubnetMask.length -lt 3) {
+        #$SubnetMask.length
+        #$SubnetMask.gettype()
+        [Net.IPAddress]$SubnetMask = Convert-CIDR $SubnetMask
+        Write-Host -foreground "green" "the converted cidr mask is: " $SubnetMask
+    }
+    else {[Net.IPAddress]$SubnetMask = $SubnetMask}
 
+    if (($IP1.address -band $SubnetMask.address) -eq ($IP2.address -band $SubnetMask.address)) {
+        Write-Host "The addresses you entered are on the same network."
+        Write-Host -ForegroundColor "green" "The subnet mask is " $SubnetMask
+        "IP1 = " + $IP1.gettype()
+        "IP2 = " + $IP2.gettype()
+        "SubnetMask = " + $SubnetMask.gettype()
 
-
-
+    }
+    else {
+        Write-Host "The addresses you entered are not on the same network."
+        "IP1 = " + $IP1.gettype()
+        "IP2 = " + $IP2.gettype()
+        "SubnetMask = " + $SubnetMask.gettype()
+    }
 }
 
+Test-IPNetwork 192.168.10.5 172.16.15.5 255.255.255.0
 # bitconverter class gets bytes out of something (ip address)
 # hash table with bits as key and netmask as value? 11111111 = 255?
  
