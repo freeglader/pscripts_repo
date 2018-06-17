@@ -133,14 +133,14 @@ function Test-IPNetwork () {
 # $globalVARforSubnetMask = New-CidrToIPAdd 24
 # $globalVARforSubnetMask
 <#
-    5. #! Function 3
-        a. #! Description:  Given an IP address and a Subnet mask return the network ID
+    5. #? Function 3
+        a. #* Description:  Given an IP address and a Subnet mask return the network ID
         b. #* Name: 
             i. #*: Get-IPNetID
-        c. #! Parameters
+        c. #* Parameters
             i. #*: –IP:  IP address to test
             ii. #*: –SubnetMask:  Optional, Subnet Mask to test
-        d. #! Features
+        d. #? Features
             i. #*: Allow subnet mask to be entered in CIDR or dotted decimal format.
             ii. #todo: Validate IP address and subnet mask, return error if they are not valid.
             iii. #*: If no subnet mask is entered use the class full subnet mask based on the IP address
@@ -208,10 +208,11 @@ function Get-IPNetID {
     [Net.IPAddress]$IP = $IP
     [Net.IPAddress]$netID = $IP.Address -band $SubnetMask.address
     Write-Host -Foreground "green" "The network ID for $IP is" $netID
+    $netID.gettype()
 
 }   
 
-Get-IPNetID 172.30.5.10
+ #Get-IPNetID 172.30.5.10
 
 
 <#
@@ -219,3 +220,17 @@ Get-IPNetID 172.30.5.10
         a. #todo: You get to make your own network utility, it can do whatever you want, have fun and be creative
 #>
 
+#* My function calculates the number of valid hosts for a given subnet
+function Valid-Hosts {
+    Param(
+        [Parameter(Mandatory=$true)]
+        [string] $cidrMask
+    )
+
+    $hostBits = 32 - $cidrMask
+    $numValidHosts = ([math]::pow( 2, $hostBits)) - 2
+
+    Write-Host -ForegroundColor "green" "The number of valid hosts on the /$cidrMask subnet is: " $numValidHosts
+}
+
+#Valid-Hosts 19
