@@ -125,7 +125,7 @@ function Test-IPNetwork () {
     }
 }
 
-Test-IPNetwork 192.168.10.5 172.16.15.5 255.255.255.0
+#* Test-IPNetwork 192.168.10.5 172.16.15.5 255.255.255.0
 # bitconverter class gets bytes out of something (ip address)
 # hash table with bits as key and netmask as value? 11111111 = 255?
  
@@ -135,19 +135,83 @@ Test-IPNetwork 192.168.10.5 172.16.15.5 255.255.255.0
 <#
     5. #! Function 3
         a. #! Description:  Given an IP address and a Subnet mask return the network ID
-        b. #! Name: 
-            i. #todo: Get-IPNetID
+        b. #* Name: 
+            i. #*: Get-IPNetID
         c. #! Parameters
-            i. #todo: –IP:  IP address to test
-            ii. #todo: –SubnetMask:  Optional, Subnet Mask to test
+            i. #*: –IP:  IP address to test
+            ii. #*: –SubnetMask:  Optional, Subnet Mask to test
         d. #! Features
-            i. #todo: Allow subnet mask to be entered in CIDR or dotted decimal format.
+            i. #*: Allow subnet mask to be entered in CIDR or dotted decimal format.
             ii. #todo: Validate IP address and subnet mask, return error if they are not valid.
-            iii. #todo: If no subnet mask is entered use the class full subnet mask based on the IP address
+            iii. #*: If no subnet mask is entered use the class full subnet mask based on the IP address
 #>
 
+function Get-IPNetID {
+    Param(
+        [Parameter(Mandatory=$true)]
+        [Net.IPAddress] $IP,
 
+        [Parameter()]
+        [string] $SubnetMask
+    )
 
+    if ($SubnetMask.length -lt 3 -and $SubnetMask.Length -gt 0) {
+        Write-Host -ForegroundColor "red" "-------------------------------DEBUGGING-----------------------------------"
+        "SubnetMask: " + $SubnetMask
+        "SubnetMask.Length: " + $SubnetMask.Length
+        "SubnetMask.GetType(): " + $SubnetMask.GetType()
+        Write-Host -ForegroundColor "red" "---------------------------------------------------------------------------"
+
+        [Net.IPAddress]$SubnetMask = Convert-CIDR $SubnetMask
+        Write-Host -foreground "green" "the converted cidr mask is: " $SubnetMask
+    }
+    elseif ($SubnetMask.Length -eq 0) {
+        Write-Host "You did not provide a subnetmask - the default classful netmask will be used."
+        [string]$IP = $IP.IPAddressToString
+        $IParray = "$IP" -split ".",0,'SimpleMatch'
+        if ([int]$IParray[0] -in 1..127) {
+            if ($IParray[0] -eq 127 -and ($IParray[1] -in 0..255)) {
+                Write-Host -Foreground "blue" "IP address provided is part of reserved range for loopback addresses, it uses a /8 mask"
+                [Net.IPAddress]$SubnetMask = Convert-CIDR 8
+            }
+            else {
+                Write-Host "Using Class A default mask..."
+                [Net.IPAddress]$SubnetMask = Convert-CIDR 8
+                $SubnetMask.IPAddressToString 
+            }
+        }
+        elseif ([int]$IParray[0] -in 128..191) {
+            if ($IParray[0] -eq 172 -and ($IParray[1] -in 16..31)) {
+                Write-Host -Foreground "blue" "IP address provided is part of reserved range that uses a /12 mask"
+                [Net.IPAddress]$SubnetMask = Convert-CIDR 12
+            }
+            else {
+                Write-Host "Using Class B default mask..."
+                [Net.IPAddress]$SubnetMask = Convert-CIDR 16
+                $SubnetMask.IPAddressToString 
+            }           
+        }
+        elseif ([int]$IParray[0] -in 192..223) {
+            if ($IParray[0] -eq 192 -and $IParray[1] -eq 168) {
+                Write-Host -Foreground "blue" "IP address provided is part of reserved range that uses a /16 mask"
+                [Net.IPAddress]$SubnetMask = Convert-CIDR 16
+            }
+            else {
+                Write-Host "Using Class C default mask..."
+                [Net.IPAddress]$SubnetMask = Convert-CIDR 24
+                $SubnetMask.IPAddressToString
+            }
+            
+        }
+    }
+    else {[Net.IPAddress]$SubnetMask = $SubnetMask}
+    [Net.IPAddress]$IP = $IP
+    [Net.IPAddress]$netID = $IP.Address -band $SubnetMask.address
+    Write-Host -Foreground "green" "The network ID for $IP is" $netID
+
+}   
+
+Get-IPNetID 172.30.5.10
 
 
 <#
