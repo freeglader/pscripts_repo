@@ -6,7 +6,7 @@
 # Support functions: My support function is the Convert-CIDR function, which converts cidr notation to subnet mask in dotted decimal format
 #===================================================
 
-#! Functions for Repeatable tasks
+#* Functions for Repeatable tasks
 $convertedIP=$null
 $counter = $null
 function Convert-CIDR ($cidr){
@@ -43,15 +43,15 @@ function Convert-CIDR ($cidr){
 Convert-CIDR 24
 
 <#
-    3. #? Function 1
+    3. #* Function 1
         a. #* Description:  Function takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.  Return output that shows results of ping.
         b. #* Name: 
             i. #* Test-IPHost
         c. #* Parameters:  
             i. #* –HostName  (name of host to ping)
-            ii. #* -Count:  Optional Number of times to ping the device
-        d. #? Features:  
-            i. #todo: Provide an appropriate error if the host is not found
+            ii. #? -Count:  Optional Number of times to ping the device
+        d. #* Features:  
+            i. #? Provide an appropriate error if the host is not found
             ii. #* Allow multiple hostnames to be tested
 #>
 
@@ -73,15 +73,15 @@ function Test-IPHost ($HostName,$Count = 1) {
 
 
 <#
-    4. #! Function 2
-        a. #! Description:  The second function is used to determine if two IP addresses are on the same network.  Return a $true it they are a $false if they are not.  
-        b. #todo: Name: Test-IPNetwork
-        c. #! Parameters
-            i. #todo: -IP1, -IP2:  IP addresses to test
-            ii. #todo: –SubnetMask:  Subnet mask to use in tests
-        d. #! Features
-            i. #todo: Allow subnet mask to be entered in CIDR or dotted decimal format.
-            ii. #todo: Validate IP address and subnet mask, return error if they are not valid.
+    4. #* Function 2
+        a. #* Description:  The second function is used to determine if two IP addresses are on the same network.  Return a $true it they are a $false if they are not.  
+        b. #* Name: Test-IPNetwork
+        c. #* Parameters
+            i. #* -IP1, -IP2:  IP addresses to test
+            ii. #* –SubnetMask:  Subnet mask to use in tests
+        d. #* Features
+            i. #* Allow subnet mask to be entered in CIDR or dotted decimal format.
+            ii. #* Validate IP address and subnet mask, return error if they are not valid.
 #>
 
 function Test-IPNetwork () {
@@ -130,16 +130,16 @@ function Test-IPNetwork () {
 # $globalVARforSubnetMask = New-CidrToIPAdd 24
 # $globalVARforSubnetMask
 <#
-    5. #? Function 3
+    5. #* Function 3
         a. #* Description:  Given an IP address and a Subnet mask return the network ID
         b. #* Name: 
             i. #*: Get-IPNetID
         c. #* Parameters
             i. #*: –IP:  IP address to test
             ii. #*: –SubnetMask:  Optional, Subnet Mask to test
-        d. #? Features
+        d. #* Features
             i. #*: Allow subnet mask to be entered in CIDR or dotted decimal format.
-            ii. #todo: Validate IP address and subnet mask, return error if they are not valid.
+            ii. #* Validate IP address and subnet mask, return error if they are not valid.
             iii. #*: If no subnet mask is entered use the class full subnet mask based on the IP address
 #>
 
@@ -215,8 +215,8 @@ function Get-IPNetID {
 
 
 <#
-    6. #! Function 4
-        a. #todo: You get to make your own network utility, it can do whatever you want, have fun and be creative
+    6. #* Function 4
+        a. #* You get to make your own network utility, it can do whatever you want, have fun and be creative
 #>
 
 #* My function calculates the number of valid hosts for a given subnet
