@@ -64,7 +64,7 @@ function Test-IPHost ($HostName,$Count = 1) {
             $upStatus = Test-Connection $i -Count $Count -Quiet
             Write-Host -Foreground "magenta" "$i`: " -NoNewline
             $(if($upStatus -eq $True){Write-Host -Foreground "green" "Up"} else {Write-Host -Foreground "red" "down"})
-            
+
         }
     }
 }
