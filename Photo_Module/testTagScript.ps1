@@ -13,11 +13,16 @@ function Import-Photos {
     # Create a list of files from source folder & a list of valid photo file types
     $SourceFileList = Get-ChildItem $SourceFolder -File
     $ValidFileTypes = ".jpg",".png"
-
+    
     # loop through file list and check if the files are valid types, then execute logic inside if statements
     foreach ($file in $SourceFileList) {
         if ($file.extension -in $ValidFileTypes) {
-            Write-Host "$file I'm a photo!"
+            Write-Host "I'm a photo!"
+            $photoTags = [TagLib.File]::Create($file.FullName)
+            $photoDate = $photoTags.Tag.DateTime
+            Write-Host "Tags: "$photoTags
+            Write-Host "Date: " $photoTags.Tag.DateTime
+            #Write-Host "$file date: $photoDate"
             #if ($move) {
             #    Move-Item -Path file.path
 
@@ -26,11 +31,12 @@ function Import-Photos {
 
         }
         else {
-        Write-Host "$file I'm not a photo"
+        #Write-Host "$file I'm not a photo"
         }
     }
-
-
+   
+    Write-Host "Src: "$SourceFolder
+    Write-Host "Dest: "$DestinationFolder
 }
 
-Import-Photos
+Import-Photos 
