@@ -34,7 +34,7 @@ function Convert-CIDR ($cidr){
         #! Counts octets so it can add a "." after each octet except the last.
         #? (might want to change this to a join)
         if($counter -le 3) {[string]$convertedIP += "."}
-       
+
     }
  }
     # returns finshed product, a dotted decimal subnet mask
