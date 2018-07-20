@@ -1,4 +1,4 @@
-<# 
+<# change
 2.	Create a cmdlet Import-Photos with the following features
     a.	Arguments
         #* i.	SourceFolder:  Location of image files to import, if omitted use current
