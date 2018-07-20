@@ -9,7 +9,6 @@ function Import-Photos {
         [switch] $Move
     )
 
-    
     # Create a list of files from source folder & a list of valid photo file types
     $SourceFileList = Get-ChildItem $SourceFolder -File
     $ValidFileTypes = ".jpg",".png"
