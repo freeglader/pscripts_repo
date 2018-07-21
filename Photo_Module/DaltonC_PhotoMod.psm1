@@ -17,8 +17,17 @@ $TagSharpDLL=Join-Path $ModulePath 'taglib-sharp.dll'
 
 #? -----------------------------------------------Support Functions --------------------------------------------------------
 function Remove-DestinationFolders {
-    
-
+    [CmdletBinding()]
+    Param (
+        [string] $Path = "C:\Users\daltonsolo\Documents\CIT 499 - PowerShell\pscripts_repo\Photo_Module\Photo_Dest\*",
+        [switch] $Recurse
+    )
+    if ($Recurse) {
+        Remove-Item -Recurse -Path $Path
+    }
+    else {
+        Remove-Item -Path $Path
+    }
 }
 
 
