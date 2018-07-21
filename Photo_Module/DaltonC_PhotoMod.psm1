@@ -14,6 +14,18 @@ $ModulePath=Split-Path $MyInvocation.mycommand.Source -Parent
 $TagSharpDLL=Join-Path $ModulePath 'taglib-sharp.dll'
 [System.Reflection.Assembly]::LoadFile($TagSharpDLL)>$null
 
+
+#? -----------------------------------------------Support Functions --------------------------------------------------------
+function Remove-DestinationFolders {
+    
+
+}
+
+
+
+#? -------------------------------------------------------------------------------------------------------------------------
+
+
 function Import-Photos {
     [CmdletBinding()]
     Param (
