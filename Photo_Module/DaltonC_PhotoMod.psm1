@@ -15,6 +15,7 @@ $TagSharpDLL=Join-Path $ModulePath 'taglib-sharp.dll'
 [System.Reflection.Assembly]::LoadFile($TagSharpDLL)>$null
 
 function Import-Photos {
+    [CmdletBinding()]
     Param (
         [string] $SourceFolder = ".\",
         [string] $DestinationFolder = ".\",
@@ -66,7 +67,7 @@ function Import-Photos {
     }
 }
 
-Import-Photos # -SourceFolder "C:\Users\Dalton\Documents\pscripts_repo\Photo_Module\Photo_Source"# -DestinationFolder "C:\Users\Dalton\Documents\pscripts_repo\Photo_Module\Photo_Dest"
+# Import-Photos # -SourceFolder "C:\Users\Dalton\Documents\pscripts_repo\Photo_Module\Photo_Source"# -DestinationFolder "C:\Users\Dalton\Documents\pscripts_repo\Photo_Module\Photo_Dest"
 <#
 3.	Create a cmdlet named Rename-Photos
     a.	Arguments
@@ -85,6 +86,7 @@ Import-Photos # -SourceFolder "C:\Users\Dalton\Documents\pscripts_repo\Photo_Mod
 #>
 
 function Rename-Photos {
+    [CmdletBinding()]
     Param (
         [string] $SourceFolder = ".\",
         [switch] $Recurse,
