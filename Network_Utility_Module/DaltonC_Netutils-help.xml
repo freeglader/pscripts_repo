@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Convert-CIDR</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>CIDR</command:noun>
+      <maml:description>
+        <maml:para>Converts CIDR notation to an IP address in dotted decimal notation.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Convert-CIDR cmdlet takes valid CIDR notation (integer between 1 and 32) as input and converts it to an IP address in dotted decimal notation. The CIDR mask must be written without a slash in order to be processed correctly by the cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-CIDR</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>cidr</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the CIDR mask to be converted.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>cidr</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the CIDR mask to be converted.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Convert-CIDR -cidr 24
+255.255.255.0</dev:code>
+        <dev:remarks>
+          <maml:para>A CIDR mask of /24 is equivalent to 255.255.255.0. The cmdlet took the 24 bits, split it into octets and performed binary conversion to arrive at 255.255.255.0.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-IPNetID</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>IPNetID</command:noun>
+      <maml:description>
+        <maml:para>Returns the network ID when given an IP address and subnet mask.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-IPNetID cmdlet returns the network ID when given an IP address and subnet mask.  The subnet mask is optional, and if omitted the cmdlet uses the default classful subnet mask instead. The cmdlet also checks to see if the IP address is part of a reserved range and notifes the user if it is.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-IPNetID</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>IP</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the IP to calculate a network ID for.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">IPAddress</command:parameterValue>
+          <dev:type>
+            <maml:name>IPAddress</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>SubnetMask</maml:name>
+          <maml:Description>
+            <maml:para>Optionally specifies the subnet mask for the IP address.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>IP</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the IP to calculate a network ID for.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">IPAddress</command:parameterValue>
+        <dev:type>
+          <maml:name>IPAddress</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>SubnetMask</maml:name>
+        <maml:Description>
+          <maml:para>Optionally specifies the subnet mask for the IP address.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-IPNetID -IP 10.49.6.32 -SubnetMask 255.255.255.0
+The network ID for 10.49.6.32 is 10.49.6.0</dev:code>
+        <dev:remarks>
+          <maml:para>The first example provides a subnet mask as input. Using the provided parameters, the cmdlet calculated the network ID and returned it as output.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-IPNetID -IP 10.49.6.32 
+Using Class A default mask...
+The network ID for 10.49.6.32 is 10.0.0.0</dev:code>
+        <dev:remarks>
+          <maml:para>The second example does not provide a subnet mask as input. Using the provided IP address, the cmdlet determined the class the IP belonged to  and used it's default mask. Given that the IP address was a class A address, the default mask of 255.0.0.0 was used to perform the calculation.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-ValidHosts</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ValidHosts</command:noun>
+      <maml:description>
+        <maml:para>Calculates the number of valid hosts for a given subnet</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The cmdlet **Get-ValidHosts calculates the number of valid hosts for a given subnet. It only takes a subnet mask written in CIDR notation as valid input.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ValidHosts</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>cidrMask</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the subnet mask in CIDR notation (does not accept slash before number).</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>cidrMask</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the subnet mask in CIDR notation (does not accept slash before number).</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ValidHosts 24
+The number of valid hosts on the /24 subnet is:  254</dev:code>
+        <dev:remarks>
+          <maml:para>This example used a subnet mask of /24 as input, which returned 254 as the number of valid hosts for the /24 subnet.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-IPHost</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>IPHost</command:noun>
+      <maml:description>
+        <maml:para>Takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Test-IPHost cmdlet takes a hostname, determines the IP address(es) for the host and pings each IP address to determine if it is online.
+It returns output that shows results of ping. Specify one or more hostnames to be tested, along with an optional number of times to ping the host.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-IPHost</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>HostName</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the hosts to be tested.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the number of times to ping a host.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>Count</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the number of times to ping a host.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>HostName</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the hosts to be tested.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>System.Int32</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-IPHost -HostName google.com,reddit.com -Count 3
+Up-status for google.com
+216.58.216.174: Up
+Up-status for reddit.com
+151.101.193.140: Up
+151.101.129.140: Up
+151.101.1.140: Up
+151.101.65.140: Up</dev:code>
+        <dev:remarks>
+          <maml:para>In this example, the first parameter takes both google.com and reddit.com and pings them each 3 times. If the hosts respond, the cmdlet returns the hosts up-status. This example returned each of the IP addresses associated with the hostnames and returned that they were all up (online).</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-IPNetwork</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>IPNetwork</command:noun>
+      <maml:description>
+        <maml:para>Determines if two IP addresses are on the same network</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Test-IPNetwork cmdlet is used to determine if two IP addresses are on the same network. It requires two IP addresses and a subnet mask as input in order to work properly. The subnet mask can be entered in CIDR or dotted decimal format.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-IPNetwork</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>IP1</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the first IP address to be compared.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">IPAddress</command:parameterValue>
+          <dev:type>
+            <maml:name>IPAddress</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>IP2</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the second IP address to be compared.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">IPAddress</command:parameterValue>
+          <dev:type>
+            <maml:name>IPAddress</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>SubnetMask</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the subnet mask to be compared, takes CIDR notation (without slash) and dotted decimal notation.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>IP1</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the first IP address to be compared.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">IPAddress</command:parameterValue>
+        <dev:type>
+          <maml:name>IPAddress</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>IP2</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the second IP address to be compared.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">IPAddress</command:parameterValue>
+        <dev:type>
+          <maml:name>IPAddress</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>SubnetMask</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the subnet mask to be compared, takes CIDR notation (without slash) and dotted decimal notation.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-IPNetwork -IP1 10.49.36.5 -IP2 10.49.36.10 -SubnetMask 255.255.255.0
+The addresses you entered are on the same network.
+The subnet mask is  255.255.255.0</dev:code>
+        <dev:remarks>
+          <maml:para>In this example, the cmdlet took 2 IP addresses and a subnet mask and permormed bitwise comparison to determine if they were on the same network.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+</helpItems>
