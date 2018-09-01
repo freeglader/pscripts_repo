@@ -13,6 +13,52 @@
 $ModulePath=Split-Path $MyInvocation.mycommand.Source -Parent
 $TagSharpDLL=Join-Path $ModulePath 'taglib-sharp.dll'
 [System.Reflection.Assembly]::LoadFile($TagSharpDLL)>$null
+script:$ValidFileTypes = ".jpg",".png"
+
+
+#? -----------------------------------------------Support Functions --------------------------------------------------------
+function Remove-DestinationFolders {
+    [CmdletBinding()]
+    Param (
+        [string] $Path = "C:\Users\daltonsolo\Documents\CIT 499 - PowerShell\pscripts_repo\Photo_Module\Photo_Dest\*",
+        [switch] $Recurse
+    )
+    if ($Recurse) {
+        Remove-Item -Recurse -Path $Path
+    }
+    else {
+        Remove-Item -Path $Path
+    }
+}
+
+function Get-Tags {
+    [CmdletBinding()]
+    Param (
+        #[string[]] $Photos,
+        [string] $SourceFolder = "./"
+    )
+
+    $SourceFileList = Get-ChildItem $SourceFolder -File
+    
+    foreach ($file in $SourceFileList) {
+
+        if ($file.extension -in $ValidFileTypes) {
+            $photoTags = [TagLib.File]::Create($file.FullName)
+            $date = $photoTags.Tag.DateTime
+
+            $Year = $date.Year
+            Write-Host "Date: " $date.Month "File: " $file
+            $Month = (Get-Culture).DateTimeFormat.GetMonthName($date.Month)
+        }
+    
+    }
+
+}
+
+
+
+#? -------------------------------------------------------------------------------------------------------------------------
+
 
 function Import-Photos {
     [CmdletBinding()]
@@ -25,7 +71,6 @@ function Import-Photos {
     "Source Folder: " + $SourceFolder
     # Create a list of files from source folder & a list of valid photo file types
     $SourceFileList = Get-ChildItem $SourceFolder -File
-    $ValidFileTypes = ".jpg",".png"
     # loop through file list and check if the files are valid types, then execute logic inside if statements
     foreach ($file in $SourceFileList) {
        if ($file.extension -in $ValidFileTypes) {
@@ -95,11 +140,15 @@ function Rename-Photos {
         [switch] $Force
     )
     $SourceFileList = Get-ChildItem $SourceFolder -File
-    $ValidFileTypes = ".jpg",".png"
     foreach ($file in $SourceFileList) {
         if ($file.extension -in $ValidFileTypes) {
             
-            $NameRoot = Get-Location
+            if ($Recurse) {
+
+
+            }
+            $tags = Get-Tags
+
             $newName = $NameRoot
              # "Photo: " + $file + "Year: " + $Year
         }
