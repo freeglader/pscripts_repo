@@ -13,7 +13,7 @@ $HTML = Invoke-WebRequest -Uri $URI
 
 # Using "$HTML.ParsedHtml | gm" shows you methods you can use against the HTML document
 #> 
-
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $baseUrl = "https://dcole.policytech.com"
     
     $fileLocation = "C:\Users\dacole\Documents\PowerShell Scripts\test_nightly_backup.bak"
