@@ -1,5 +1,5 @@
 #===================================================
-# Program Name : Color
+# Program Name: Color
 # Author: Dalton Cole
 # I, Dalton Cole, wrote this script as original work completed by me.
 # Special Feature:  <Created a menu using switch statements that can be accessed during the game>
